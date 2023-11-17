@@ -1,0 +1,24 @@
+class Solution:
+    
+    #Function to convert binary tree into circular doubly linked list.
+    def bTreeToClist(self, root):
+        #Your code here
+        li=[]
+        def ino(root,li):
+            if root:
+                ino(root.left,li)
+                li.append(root)
+                ino(root.right,li)
+        ino(root,li)
+        if not li:
+            return None
+        head=li[0]
+        prev=None
+        for i in li:
+            if prev:
+                prev.right=i
+            i.left=prev
+            prev=i
+        prev.right=head
+        head.left=prev
+        return head
