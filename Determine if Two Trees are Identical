@@ -1,0 +1,21 @@
+class Solution
+{
+    public:
+    //Function to check if two trees are identical.
+    bool isIdentical(Node *r1, Node *r2)
+    {
+        Node *temp1 = r1;
+        Node *temp2 = r2;
+        
+        if(temp1 == NULL and temp2 != NULL)
+            return false;
+        else if(temp1 != NULL and temp2 == NULL)
+            return false;
+        else if(temp1 == NULL and temp2 == NULL)
+            return true;
+        if(temp1->data != temp2->data)
+            return false;
+        else
+            return(isIdentical(r1->left,r2->left) && isIdentical(r1->right,r2->right));
+    }
+};
