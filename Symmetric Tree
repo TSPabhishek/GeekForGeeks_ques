@@ -1,0 +1,8 @@
+def isSymmetric(self, root):
+        def func(root1,root2):
+            if root1 is None and root2 is None:
+                return True
+            if root1 is None or root2 is None or root1.data !=root2.data:
+                return False
+            return func(root1.left,root2.right) and func(root1.right,root2.left)
+        return func(root.left,root.right) if root else True
