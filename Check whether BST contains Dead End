@@ -1,0 +1,18 @@
+class Solution
+{
+    public static boolean isDeadEnd(Node root)
+    {
+         boolean ans = dend(root,1,Integer.MAX_VALUE);
+        return ans;
+    }
+    public static boolean dend(Node root,int min,int max){
+        if(root == null){
+            return false;
+        }
+        if(min == max){
+            return true;
+        }
+        return dend(root.left,min,root.data-1) || dend(root.right,root.data+1,max);
+        //Add your code here.
+    }
+}
