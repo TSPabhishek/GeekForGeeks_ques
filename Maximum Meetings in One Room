@@ -1,0 +1,25 @@
+public static ArrayList<Integer> maxMeetings(int N, int[] S, int[] F) {
+        int arr[][] = new int[N][3];
+        
+        for(int i=0;i<N;i++){
+            arr[i][0] = i;
+            arr[i][1] = S[i];
+            arr[i][2] = F[i];
+        }
+        
+        Arrays.sort(arr , Comparator.comparingInt(a->a[2]));
+        
+        int endTime = arr[0][2];
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        ans.add(arr[0][0]+1);
+        
+        for(int i=1;i<N;i++){
+            if(arr[i][1] > endTime){
+                ans.add(arr[i][0]+1);
+                endTime = arr[i][2];
+            }
+        }
+        Collections.sort(ans);
+        return ans;
+    }
