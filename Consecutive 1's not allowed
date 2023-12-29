@@ -1,0 +1,26 @@
+class Solution {
+    long countStrings(int n) {
+        // code here
+        if(n==1) return 2;
+        
+        int mod=(int)1e9+7;
+        
+        long first=1;
+        long second=1;
+        
+        long sum=(first+second)%mod;
+        
+        int i=2;
+        
+        while(i<=n){
+            
+            second=first;
+            first=sum;
+            sum=(first+second)%mod;
+            i++;
+        }
+        
+        return sum;
+        
+    }
+}
