@@ -1,0 +1,22 @@
+class Solution{
+    static long maximumSumSubarray(int K, ArrayList<Integer> Arr,int N){
+        // code here
+        int st = 0;
+        int ed = 0;
+        long sum = 0;
+        long max = Long.MIN_VALUE;
+        while(ed < N){
+            sum += Arr.get(ed);
+            if((ed - st) + 1 < K){
+                ed++;
+            }
+            else if((ed - st) + 1 == K){
+                max = Math.max(sum , max);
+                sum -= Arr.get(st);
+                st++;
+                ed++;
+            }
+        }
+        return max;
+    }
+}
