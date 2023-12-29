@@ -1,0 +1,32 @@
+public:
+    int buyMaximumProducts(int n, int k, int price[])
+    {
+        multimap<int,int> mp;
+        for(int i = 0; i < n; i++)
+        {
+            //mp[price[i]] = i;
+            mp.insert({price[i],i});
+        }
+        int amt = k;
+        int ans = 0;
+        for(auto itr = mp.begin(); itr != mp.end(); itr++)
+        {
+            if(amt>=(itr->first))
+            {
+                if(amt/(itr->first) < (itr->second + 1))
+                {
+                    ans += amt/(itr->first);
+                    amt = amt - (itr->first)*(amt/(itr->first));
+                }
+                else
+                {
+                    amt = amt - ((itr->first)*(itr->second + 1 ));
+                    ans += itr->second + 1; 
+                }
+            }
+            //cout << amt << " " << ans << endl;
+        }
+        return ans;
+        //Write your code here
+    }
+};
