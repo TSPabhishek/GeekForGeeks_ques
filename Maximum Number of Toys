@@ -1,0 +1,55 @@
+class Solution{
+public:
+    #define ll long long
+    ll update(ll &cur_cost,vector<int>& q,map<ll,pair<ll,ll>>& mp,ll mid){
+        ll m = q[1],c = 0;
+        for(ll j = 0; j < m; j++){
+            ll idx = q[j+2]-1,k = idx;
+            idx = mp[idx].first;
+            if(idx <= mid){
+                cur_cost -= mp[k].second;
+                c++;
+            }
+        }
+        return c;
+    }
+    ll toys(int N,vector<int>& q,vector<ll>& pref_sum,map<ll,pair<ll,ll>>& mp){
+        ll start = 0,end = N-1,mid = 0,ans = 0,C = q[0];
+        while(start <= end){
+            mid = start + (end-start) / 2;
+            ll cur_cost = pref_sum[mid];
+            ll c = update(cur_cost,q,mp,mid);
+            if(cur_cost <= C){
+                ans = max(ans,mid+1-c);
+                start = mid + 1;
+            }
+            else{
+                end = mid - 1;
+            }
+        }
+        return ans;
+    }
+  vector<int> maximumToys(int N,vector<int> A,int Q,vector<vector<int>> Queries){
+      // code here
+      vector<pair<ll,ll>>Ps;
+      for(ll i = 0; i < N; i++){
+        Ps.push_back({A[i],i});
+      }
+      sort(Ps.begin(),Ps.end());
+      map<ll,pair<ll,ll>>mp;
+      for(ll i = 0; i < N; i++){
+          mp[Ps[i].second].first = i;
+          mp[Ps[i].second].second = Ps[i].first;
+      }
+      vector<ll>pref_sum(N); ll sum = 0;
+      for(ll i = 0; i < N; i++){
+          sum += Ps[i].first;
+          pref_sum[i] = sum;
+      }
+      vector<int>ans(Q);
+      for(int i = 0; i < Q; i++){
+        ans[i] = toys(N,Queries[i],pref_sum,mp);
+      }
+      return ans;
+  }
+};
