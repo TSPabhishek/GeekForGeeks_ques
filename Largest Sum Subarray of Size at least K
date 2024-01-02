@@ -1,0 +1,27 @@
+public long maxSumWithK(long a[], long n, long k)
+    {
+        long sum = 0;
+        long maxSum = 0;
+        long prevElemSum = 0;
+        
+        for (int i = 0; i < k; i++) {
+            sum = sum + a[i];
+        }
+        maxSum = sum;
+        int m = 0;
+        
+        for(int i = (int)k; i < n; i++){
+            sum = sum + a[i];
+            maxSum = Math.max(sum, maxSum);
+            prevElemSum = prevElemSum + a[m++];
+            
+            if(prevElemSum < 0){
+                sum = sum - prevElemSum;
+                prevElemSum = 0;
+                maxSum = Math.max(sum, maxSum);
+            }
+        }
+        
+        return maxSum;
+        
+    }
