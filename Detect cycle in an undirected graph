@@ -1,0 +1,28 @@
+class Solution {
+    // Function to detect cycle in an undirected graph.
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Code here
+        boolean vis[] = new boolean[V];
+        for(int i=0;i<V;i++){
+            if(!vis[i] && isCycleUtil(i,-1,vis,adj)){
+                return true;
+            }
+        }
+        return false;
+    }
+       private boolean isCycleUtil(int curr,int par,boolean vis[],ArrayList<ArrayList<Integer>> adj){
+        vis[curr]=true;
+        for(int neigh : adj.get(curr)){
+            if(!vis[neigh]){
+                if(isCycleUtil(neigh,curr,vis,adj)){
+                    return true;
+                }
+            }
+            else if(neigh != par){
+                return true;
+            }
+           
+        }
+        return false;
+    }
+}
