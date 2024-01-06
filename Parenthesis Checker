@@ -1,0 +1,21 @@
+class Solution
+{
+    //Function to check if brackets are balanced or not.
+    static boolean ispar(String x)
+    {
+        // add your code here
+        HashMap<Character,Character> m=new HashMap<Character,Character>();
+        m.put(')','(');
+        m.put(']','[');
+        m.put('}','{');
+        Stack<Character> s=new Stack<Character>();
+        int n=x.length();
+        for(int i=0;i<n;i++){
+           if(!s.isEmpty() && m.get(x.charAt(i))==s.peek())
+           s.pop();
+           else
+           s.push(x.charAt(i));
+        }
+        return s.isEmpty();
+    }
+}
