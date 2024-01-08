@@ -1,0 +1,74 @@
+class Solution
+{
+    public:
+    
+    struct Node * reverse(Node *n)
+    {
+        Node *prev = NULL, *curr = n, *nex = n;
+        
+        while(curr)
+        {
+            nex = nex->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nex;
+        }
+        return prev;
+        
+    }
+    
+    struct Node * mergeResult(Node *node1,Node *node2)
+    {
+        if(node1 == NULL) return reverse(node2);
+        if(node2 == NULL) return reverse(node1);
+        
+        struct Node *temp1 = node1;
+        struct Node *temp2 = node2;
+        
+        struct Node *temp = NULL;
+        int ans = 0;
+        if(temp1->data < temp2->data)
+        {
+            temp = temp1;
+            temp1 = temp1->next;
+            ans = 1;
+        }
+        else
+        {
+            temp = temp2;
+            temp2 = temp2->next;
+            ans = 2;
+        }
+        
+        while(temp1 && temp2)
+        {
+            if(temp1->data < temp2->data)
+            {
+                temp->next = temp1;
+                temp = temp1;
+                temp1 = temp1->next;
+            }
+            else
+            {
+                temp->next = temp2;
+                temp = temp2;
+                temp2 = temp2->next;
+            }
+        }
+        
+        while(temp1)
+        {
+            temp->next = temp1;
+            temp = temp1;
+            temp1 = temp1->next;
+        }
+        while(temp2)
+        {
+            temp->next = temp2;
+            temp = temp2;
+            temp2 = temp2->next;
+        }
+        if(ans == 1) return reverse(node1);
+        if(ans == 2) return reverse(node2);
+    }  
+};
