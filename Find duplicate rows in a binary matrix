@@ -1,0 +1,25 @@
+public static ArrayList<Integer> repeatedRows(int matrix[][], int m, int n)
+    {
+        //code here
+        int R = m, C = n;
+        Set<String> seenRows = new HashSet<>();
+        ArrayList<Integer> duplicateRows = new ArrayList<>();
+
+        for (int i = 0; i < R; i++) {
+            StringBuilder rowString = new StringBuilder();
+            for (int j = 0; j < C; j++) {
+                rowString.append(matrix[i][j]);
+            }
+
+            String row = rowString.toString();
+            if (seenRows.contains(row)) {
+                // If the row is already seen, add the row number to the result list
+                duplicateRows.add(i);
+            } else {
+                // Otherwise, add this row to the set of seen rows
+                seenRows.add(row);
+            }
+        }
+
+        return duplicateRows;
+    }
