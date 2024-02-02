@@ -1,0 +1,37 @@
+class Dll {
+        Node front;
+        Node rear;
+        Dll(int onlyNodeData) {
+            Node onlyNode = new Node(onlyNodeData);
+            front = rear = onlyNode;
+        }
+    }
+ 
+    //Function to convert binary tree to doubly linked list and return it.
+    Node bToDLL(Node root)
+    {
+        return createDll(root).front;
+    }
+    
+    Dll createDll(Node root) {
+        if(root.left == null && root.right == null) {
+            return new Dll(root.data);
+        } else if(root.left == null) {
+            return combineDlls(new Dll(root.data), createDll(root.right));
+        } else if(root.right == null) {
+            return combineDlls(createDll(root.left), new Dll(root.data));
+        } else { // Both root.left and root.right are non-null.
+            return combineDlls(createDll(root.left), new Dll(root.data), createDll(root.right));
+        }
+    }
+    
+    Dll combineDlls(Dll first, Dll second, Dll third) {
+        return combineDlls(combineDlls(first,second), third);
+    }
+    
+    Dll combineDlls(Dll first, Dll second) {
+        first.rear.right = second.front;
+        second.front.left = first.rear;
+        first.rear = second.rear;
+        return first;
+    }
