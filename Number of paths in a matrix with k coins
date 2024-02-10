@@ -1,0 +1,21 @@
+public:
+    
+    private:
+    long long rec(int i, int j, int currSum, int &n, int &k, vector<vector<int>> &arr, vector<vector<vector<long long>>> &dp){
+        if(i==n-1 && j==n-1 && currSum+arr[i][j]==k) return 1;
+        if(i>=n || j>=n || currSum>k) return 0;
+        if(dp[i][j][currSum]==-1)
+            dp[i][j][currSum] =rec(i+1, j, currSum+arr[i][j], n, k, arr, dp) + rec(i, j+1, currSum+arr[i][j], n, k, arr, dp);
+        return dp[i][j][currSum];
+    }
+
+public:
+    
+    long long numberOfPath(int n, int k, vector<vector<int>> &arr){
+        // set<vector<pair<int, int>>> st;
+        vector<vector<vector<long long>>> dp(n, vector<vector<long long >>(n, vector<long long>(k+1, -1)));
+        // return f(0,0, n, k, 0, arr, dp);
+        return rec(0,0,0, n,k,arr, dp);
+        // Code Here
+    }
+};
