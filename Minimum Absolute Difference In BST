@@ -1,0 +1,17 @@
+class Solution
+{
+    public:
+    
+    vector<long long> foo(Node *root){
+        if (!root) return {(long long)-1e14, (long long)1e14, (long long)1e14};
+        auto temp1 = foo(root->left);
+        auto temp2 = foo(root->right);
+        long long ans = min({root->data - temp1[0], temp2[1] - root->data, temp1[2], temp2[2]});
+        return {max((long long)root->data, temp2[0]), min((long long)root->data, temp1[1]), ans};
+    }
+    
+    int absolute_diff(Node *root)
+    {
+        return foo(root)[2];
+    }
+};
